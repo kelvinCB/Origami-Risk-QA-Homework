@@ -1,0 +1,24 @@
+{
+  "name": "origami-risk-qa-homework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kelvinCB/Origami-Risk-QA-Homework.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kelvinCB/Origami-Risk-QA-Homework/issues"
+  },
+  "homepage": "https://github.com/kelvinCB/Origami-Risk-QA-Homework#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "dotenv": "^17.4.2"
+  }
+}
