@@ -1,17 +1,33 @@
 {
   "name": "origami-risk-qa-homework",
   "version": "1.0.0",
-  "description": "",
+  "description": "Playwright JavaScript test automation framework for login validation.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:chromium": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:negative": "playwright test --grep @negative",
+    "test:mandatory": "playwright test --grep @mandatory",
+    "test:extra": "playwright test --grep @extra",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report reports/playwright-html"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kelvinCB/Origami-Risk-QA-Homework.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "playwright",
+    "test",
+    "test-automation",
+    "sdet",
+    "Kelvin & Origami"
+  ],
+  "author": "Kelvin Calcano",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/kelvinCB/Origami-Risk-QA-Homework/issues"
