@@ -78,4 +78,14 @@ test.describe('@login Login flow', () => {
     await loginPage.expectOnLoginPage();
   });
 
+  test('Verify password field masks input @smoke @positive @extra', async ({ loginPage }) => {
+    await loginPage.expectPasswordInputMasked();
+  });
+
+  test('Verify pressing Enter from the password field submits the form @smoke @positive @extra', async ({ loginPage, secureAreaPage }) => {
+    await loginPage.loginWithEnter(USERS.valid);
+
+    await secureAreaPage.expectLoaded();
+  });
+
 });

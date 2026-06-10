@@ -24,6 +24,16 @@ class LoginPage {
     await this.submitButton.click();
   }
 
+  async loginWithEnter(user) {
+    await this.usernameInput.fill(user.username);
+    await this.passwordInput.fill(user.password);
+    await this.passwordInput.press('Enter');
+  }
+
+  async expectPasswordInputMasked() {
+    await expect(this.passwordInput).toHaveAttribute('type', 'password');
+  }
+
   async expectErrorMessage(message) {
     await expect(this.flashMessage).toContainText(message);
   }
