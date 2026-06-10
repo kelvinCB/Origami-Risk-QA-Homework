@@ -88,4 +88,37 @@ test.describe('@login Login flow', () => {
     await secureAreaPage.expectLoaded();
   });
 
+  test('Verify logout returns the user to the login page @smoke @positive @extra', async ({ loginPage, secureAreaPage }) => {
+    await loginPage.login(USERS.valid);
+    await secureAreaPage.expectLoaded();
+    await secureAreaPage.logout();
+    await loginPage.expectOnLoginPage();
+  });
+
+  test('Verify logout success message after signing out @smoke @positive @extra', async ({ loginPage, secureAreaPage }) => {
+    await loginPage.login(USERS.valid);
+    await secureAreaPage.expectLoaded();
+    await secureAreaPage.logout();
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.logoutSuccess);
+  });
+
+  test('Verify direct navigation to /secure is blocked when not authenticated @smoke @negative @extra', async ({ page, loginPage }) => {
+    await page.goto('/secure');
+    await loginPage.expectOnLoginPage();
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.secureAreaBlocked);
+  });
+
+  test('Verify browser back behavior after logout @smoke @negative @extra', async ({ page, loginPage, secureAreaPage }) => {
+    await loginPage.login(USERS.valid);
+    await secureAreaPage.expectLoaded();
+    await secureAreaPage.logout();
+    await loginPage.expectOnLoginPage();
+
+    await page.goBack();
+    await page.reload();
+
+    await loginPage.expectOnLoginPage();
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.secureAreaBlocked);
+  });
+
 });
