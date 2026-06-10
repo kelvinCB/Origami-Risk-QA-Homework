@@ -10,6 +10,34 @@ const USERS = Object.freeze({
     username: config.validUser.username,
     password: 'InvalidPassword!',
   },
+  emptyUsername: {
+    username: '',
+    password: config.validUser.password,
+  },
+  emptyPassword: {
+    username: config.validUser.username,
+    password: '',
+  },
+  emptyUsernameAndPassword: {
+    username: '',
+    password: '',
+  },
+  usernameWithSpaces: {
+    username: ` ${config.validUser.username} `,
+    password: config.validUser.password,
+  },
+  passwordWithSpaces: {
+    username: config.validUser.username,
+    password: ` ${config.validUser.password} `,
+  },
+  usernameCasing: {
+    username: 'TomSmith',
+    password: config.validUser.password,
+  },
+  passwordCasing: {
+    username: config.validUser.username,
+    password: config.validUser.password.toLowerCase(),
+  },
 });
 
 module.exports = { USERS };

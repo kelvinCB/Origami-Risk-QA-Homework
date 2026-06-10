@@ -26,4 +26,99 @@ test.describe('@login Login flow', () => {
     await loginPage.expectErrorMessage(LOGIN_MESSAGES.invalidPassword);
     await loginPage.expectOnLoginPage();
   });
+
+  // additional tests
+
+  test('Login with empty username and valid password @negative @extra', async ({ loginPage }) => {
+    await loginPage.login(USERS.emptyUsername);
+
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.invalidUsername);
+    await loginPage.expectOnLoginPage();
+  });
+
+  test('Login with valid username and empty password @negative @extra', async ({ loginPage }) => {
+    await loginPage.login(USERS.emptyPassword);
+
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.invalidPassword);
+    await loginPage.expectOnLoginPage();
+  });
+
+  test('Login with both fields empty @negative @extra', async ({ loginPage }) => {
+    await loginPage.login(USERS.emptyUsernameAndPassword);
+
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.invalidUsername);
+    await loginPage.expectOnLoginPage();
+  });
+
+  test('Login with leading and trailing spaces in username @negative @extra', async ({ loginPage }) => {
+    await loginPage.login(USERS.usernameWithSpaces);
+
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.invalidUsername);
+    await loginPage.expectOnLoginPage();
+  });
+
+  test('Login with leading and trailing spaces in password @negative @extra', async ({ loginPage }) => {
+    await loginPage.login(USERS.passwordWithSpaces);
+
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.invalidPassword);
+    await loginPage.expectOnLoginPage();
+  });
+
+  test('Login with username using different casing @negative @extra', async ({ loginPage }) => {
+    await loginPage.login(USERS.usernameCasing);
+
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.invalidUsername);
+    await loginPage.expectOnLoginPage();
+  });
+
+  test('Login with password using different casing @negative @extra', async ({ loginPage }) => {
+    await loginPage.login(USERS.passwordCasing);
+
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.invalidPassword);
+    await loginPage.expectOnLoginPage();
+  });
+
+  test('Verify password field masks input @smoke @positive @extra', async ({ loginPage }) => {
+    await loginPage.expectPasswordInputMasked();
+  });
+
+  test('Verify pressing Enter from the password field submits the form @smoke @positive @extra', async ({ loginPage, secureAreaPage }) => {
+    await loginPage.loginWithEnter(USERS.valid);
+
+    await secureAreaPage.expectLoaded();
+  });
+
+  test('Verify logout returns the user to the login page @smoke @positive @extra', async ({ loginPage, secureAreaPage }) => {
+    await loginPage.login(USERS.valid);
+    await secureAreaPage.expectLoaded();
+    await secureAreaPage.logout();
+    await loginPage.expectOnLoginPage();
+  });
+
+  test('Verify logout success message after signing out @smoke @positive @extra', async ({ loginPage, secureAreaPage }) => {
+    await loginPage.login(USERS.valid);
+    await secureAreaPage.expectLoaded();
+    await secureAreaPage.logout();
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.logoutSuccess);
+  });
+
+  test('Verify direct navigation to /secure is blocked when not authenticated @smoke @negative @extra', async ({ page, loginPage }) => {
+    await page.goto('/secure');
+    await loginPage.expectOnLoginPage();
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.secureAreaBlocked);
+  });
+
+  test('Verify browser back behavior after logout @smoke @negative @extra', async ({ page, loginPage, secureAreaPage }) => {
+    await loginPage.login(USERS.valid);
+    await secureAreaPage.expectLoaded();
+    await secureAreaPage.logout();
+    await loginPage.expectOnLoginPage();
+
+    await page.goBack();
+    await page.reload();
+
+    await loginPage.expectOnLoginPage();
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.secureAreaBlocked);
+  });
+
 });

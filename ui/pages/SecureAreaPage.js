@@ -15,6 +15,10 @@ class SecureAreaPage {
     await expect(this.flashMessage).toContainText(LOGIN_MESSAGES.success);
     await expect(this.logoutButton).toBeVisible();
   }
+
+  async logout() {
+    await this.logoutButton.click();
+  }
 }
 
 module.exports = { SecureAreaPage };
