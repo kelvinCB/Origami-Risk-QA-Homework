@@ -43,6 +43,39 @@ test.describe('@login Login flow', () => {
     await loginPage.expectOnLoginPage();
   });
 
+  test('Login with both fields empty @negative @extra', async ({ loginPage }) => {
+    await loginPage.login(USERS.emptyUsernameAndPassword);
 
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.invalidUsername);
+    await loginPage.expectOnLoginPage();
+  });
+
+  test('Login with leading and trailing spaces in username @negative @extra', async ({ loginPage }) => {
+    await loginPage.login(USERS.usernameWithSpaces);
+
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.invalidUsername);
+    await loginPage.expectOnLoginPage();
+  });
+
+  test('Login with leading and trailing spaces in password @negative @extra', async ({ loginPage }) => {
+    await loginPage.login(USERS.passwordWithSpaces);
+
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.invalidPassword);
+    await loginPage.expectOnLoginPage();
+  });
+
+  test('Login with username using different casing @negative @extra', async ({ loginPage }) => {
+    await loginPage.login(USERS.usernameCasing);
+
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.invalidUsername);
+    await loginPage.expectOnLoginPage();
+  });
+
+  test('Login with password using different casing @negative @extra', async ({ loginPage }) => {
+    await loginPage.login(USERS.passwordCasing);
+
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.invalidPassword);
+    await loginPage.expectOnLoginPage();
+  });
 
 });
