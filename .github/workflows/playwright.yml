@@ -10,6 +10,12 @@ on:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  BASE_URL: https://the-internet.herokuapp.com
+  LOGIN_PATH: /login
+  LOGIN_USERNAME: tomsmith
+  LOGIN_PASSWORD: SuperSecretPassword!
+  HEADLESS: true
+  PW_WORKERS: 2
 
 jobs:
   test:

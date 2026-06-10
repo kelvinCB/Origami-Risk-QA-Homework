@@ -11,9 +11,7 @@ class LoginPage {
   }
 
   async goto() {
-    // The login page is enough once the DOM is ready; waiting for full load
-    // makes CI brittle on slow upstream resources.
-    await this.page.goto(config.loginPath, { waitUntil: 'domcontentloaded' });
+    await this.page.goto(config.loginPath);
     await expect(this.usernameInput).toBeVisible();
     await expect(this.passwordInput).toBeVisible();
   }
