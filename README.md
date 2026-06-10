@@ -126,14 +126,6 @@ Run all tests headed:
 npm run test:headed
 ```
 
-Run all headed tests one browser at a time:
-
-```bash
-npx playwright test --project=chromium --headed
-npx playwright test --project=firefox --headed
-npx playwright test --project=webkit --headed
-```
-
 Run all mandatory tests:
 
 ```bash

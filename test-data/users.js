@@ -10,6 +10,14 @@ const USERS = Object.freeze({
     username: config.validUser.username,
     password: 'InvalidPassword!',
   },
+  emptyUsername: {
+    username: '',
+    password: config.validUser.password,
+  },
+  emptyPassword: {
+    username: config.validUser.username,
+    password: '',
+  },
 });
 
 module.exports = { USERS };

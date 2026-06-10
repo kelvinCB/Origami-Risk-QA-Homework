@@ -4,6 +4,7 @@ const { config } = require('../../utils/config');
 class LoginPage {
   constructor(page) {
     this.page = page;
+    this.loginTitle = page.getByRole('heading', { name: 'Login Page' });
     this.usernameInput = page.locator('#username');
     this.passwordInput = page.locator('#password');
     this.submitButton = page.getByRole('button', { name: 'Login' });
@@ -12,6 +13,7 @@ class LoginPage {
 
   async goto() {
     await this.page.goto(config.loginPath);
+    await expect(this.loginTitle).toBeVisible();
     await expect(this.usernameInput).toBeVisible();
     await expect(this.passwordInput).toBeVisible();
   }
@@ -28,6 +30,7 @@ class LoginPage {
 
   async expectOnLoginPage() {
     await expect(this.page).toHaveURL(/\/login$/);
+    await expect(this.loginTitle).toBeVisible();
     await expect(this.usernameInput).toBeVisible();
   }
 }
