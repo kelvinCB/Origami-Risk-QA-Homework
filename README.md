@@ -22,11 +22,12 @@ Current implemented suite validates:
 - Direct navigation to `/secure` without authentication.
 - Browser back behavior after logout.
 - Flash message dismissal on both the Login page and the Secure Area page.
+- Login page layout in a mobile viewport.
 
-The suite currently contains 18 tests in total:
+The suite currently contains 19 tests in total:
 
 - 3 mandatory tests.
-- 15 extra tests.
+- 16 extra tests.
 
 The suite is independent, can run in any order, and each test receives an isolated browser context from Playwright.
 

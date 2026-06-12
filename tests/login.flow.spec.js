@@ -1,4 +1,4 @@
-const { test } = require('../fixtures/testFixtures');
+const { test, expect } = require('../fixtures/testFixtures');
 const { USERS } = require('../test-data/users');
 const { LOGIN_MESSAGES } = require('../utils/constants/messages');
 
@@ -131,6 +131,27 @@ test.describe('@login Login flow', () => {
     await loginPage.login(USERS.invalidUsername);
     await loginPage.expectErrorMessage(LOGIN_MESSAGES.invalidUsername);
     await loginPage.dismissFlashMessage();
+  });
+
+  test('Verify mobile viewport layout for the login page @smoke @extra', async ({ page, loginPage }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await loginPage.goto();
+
+    const viewport = page.viewportSize();
+    const loginElements = [
+      loginPage.loginTitle,
+      loginPage.usernameInput,
+      loginPage.passwordInput,
+      loginPage.submitButton,
+    ];
+
+    for (const element of loginElements) {
+      const elementBox = await element.boundingBox();
+
+      expect(elementBox).not.toBeNull();
+      expect(elementBox.x).toBeGreaterThanOrEqual(0);
+      expect(elementBox.x + elementBox.width).toBeLessThanOrEqual(viewport.width);
+    }
   });
 
 });
