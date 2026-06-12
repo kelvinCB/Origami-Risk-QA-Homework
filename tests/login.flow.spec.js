@@ -120,5 +120,17 @@ test.describe('@login Login flow', () => {
     await loginPage.expectOnLoginPage();
     await loginPage.expectErrorMessage(LOGIN_MESSAGES.secureAreaBlocked);
   });
+  
+  test('Verify flash message can be dismissed with the close button on Secure Area page @smoke @positive @extra', async ({ loginPage, secureAreaPage }) => {
+    await loginPage.login(USERS.valid);
+    await secureAreaPage.expectLoaded();
+    await secureAreaPage.dismissFlashMessage();
+  });
+
+  test('Verify flash message can be dismissed with the close button on Login page @smoke @negative @extra', async ({ loginPage }) => {
+    await loginPage.login(USERS.invalidUsername);
+    await loginPage.expectErrorMessage(LOGIN_MESSAGES.invalidUsername);
+    await loginPage.dismissFlashMessage();
+  });
 
 });

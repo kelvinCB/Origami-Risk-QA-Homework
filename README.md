@@ -12,8 +12,21 @@ The project uses Page Object Model, reusable fixtures, centralized test data, en
 Current implemented suite validates:
 
 - Successful login with valid credentials.
-- Login error for an invalid username.
-- Login error for an invalid password.
+- Login error for an invalid username or invalid password.
+- Login attempts with empty fields.
+- Login attempts with leading and trailing spaces in credentials.
+- Login attempts with incorrect username or password casing.
+- Password field masking.
+- Form submission using the Enter key.
+- Logout flow and logout success message.
+- Direct navigation to `/secure` without authentication.
+- Browser back behavior after logout.
+- Flash message dismissal on both the Login page and the Secure Area page.
+
+The suite currently contains 18 tests in total:
+
+- 3 mandatory tests.
+- 15 extra tests.
 
 The suite is independent, can run in any order, and each test receives an isolated browser context from Playwright.
 
@@ -144,10 +157,10 @@ Run all extra tests identified by Kelvin Calcano:
 npm run test:extra
 ```
 
-Run all positive tests:
+Run all smoke tests:
 
 ```bash
-npm run test:positive
+npm run test:smoke
 ```
 
 Run all negative tests:

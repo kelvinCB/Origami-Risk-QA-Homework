@@ -9,6 +9,7 @@ class LoginPage {
     this.passwordInput = page.locator('#password');
     this.submitButton = page.getByRole('button', { name: 'Login' });
     this.flashMessage = page.locator('#flash');
+    this.flashCloseButton = this.flashMessage.locator('a.close');
   }
 
   async goto() {
@@ -36,6 +37,11 @@ class LoginPage {
 
   async expectErrorMessage(message) {
     await expect(this.flashMessage).toContainText(message);
+  }
+
+  async dismissFlashMessage() {
+    await this.flashCloseButton.click();
+    await expect(this.flashMessage).toHaveCount(0);
   }
 
   async expectOnLoginPage() {
