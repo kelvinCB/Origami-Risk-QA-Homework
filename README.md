@@ -95,6 +95,9 @@ Copy-Item .env.example .env
 These values are safe to share because they belong to a public demo application:
 
 ```env
+ENV=qa
+QA_URL=https://the-internet.herokuapp.com
+DEV_URL=https://the-internet.herokuapp.com
 BASE_URL=https://the-internet.herokuapp.com
 LOGIN_PATH=/login
 LOGIN_USERNAME=tomsmith
@@ -105,7 +108,10 @@ PW_WORKERS=2
 
 Environment variables:
 
-- `BASE_URL`: target host.
+- `ENV`: selected environment name, for example `qa` or `dev`.
+- `QA_URL`: base URL used when `ENV=qa`.
+- `DEV_URL`: base URL used when `ENV=dev`.
+- `BASE_URL`: fallback target host when `ENV` is not set.
 - `LOGIN_PATH`: login route.
 - `LOGIN_USERNAME`: valid username.
 - `LOGIN_PASSWORD`: valid password.

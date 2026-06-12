@@ -22,8 +22,34 @@ function readWorkers(value) {
   return workers;
 }
 
+function readEnvironment(value) {
+  if (!value) {
+    return undefined;
+  }
+
+  return value.trim().toLowerCase();
+}
+
+function readBaseURL() {
+  const environment = readEnvironment(process.env.ENV);
+
+  if (!environment) {
+    return process.env.BASE_URL || 'https://the-internet.herokuapp.com';
+  }
+
+  const environmentUrlVariable = `${environment.toUpperCase()}_URL`;
+  const environmentUrl = process.env[environmentUrlVariable];
+
+  if (!environmentUrl) {
+    throw new Error(`Missing ${environmentUrlVariable} for ENV=${environment}`);
+  }
+
+  return environmentUrl;
+}
+
 const config = Object.freeze({
-  baseURL: process.env.BASE_URL || 'https://the-internet.herokuapp.com',
+  environment: readEnvironment(process.env.ENV) || 'default',
+  baseURL: readBaseURL(),
   loginPath: process.env.LOGIN_PATH || '/login',
   headless: readBooleanHeadlessOption(process.env.HEADLESS, true),
   workers: readWorkers(process.env.PW_WORKERS),
