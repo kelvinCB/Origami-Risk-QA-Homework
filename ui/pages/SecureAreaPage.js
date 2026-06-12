@@ -6,6 +6,7 @@ class SecureAreaPage {
     this.page = page;
     this.heading = page.getByRole('heading', { name: 'Secure Area', exact: true });
     this.flashMessage = page.locator('#flash');
+    this.flashCloseButton = this.flashMessage.locator('a.close');
     this.logoutButton = page.getByRole('link', { name: 'Logout' });
   }
 
@@ -18,6 +19,11 @@ class SecureAreaPage {
 
   async logout() {
     await this.logoutButton.click();
+  }
+
+  async dismissFlashMessage() {
+    await this.flashCloseButton.click();
+    await expect(this.flashMessage).toHaveCount(0);
   }
 }
 

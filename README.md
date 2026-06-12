@@ -12,8 +12,22 @@ The project uses Page Object Model, reusable fixtures, centralized test data, en
 Current implemented suite validates:
 
 - Successful login with valid credentials.
-- Login error for an invalid username.
-- Login error for an invalid password.
+- Login error for an invalid username or invalid password.
+- Login attempts with empty fields.
+- Login attempts with leading and trailing spaces in credentials.
+- Login attempts with incorrect username or password casing.
+- Password field masking.
+- Form submission using the Enter key.
+- Logout flow and logout success message.
+- Direct navigation to `/secure` without authentication.
+- Browser back behavior after logout.
+- Flash message dismissal on both the Login page and the Secure Area page.
+- Login page layout in a mobile viewport.
+
+The suite currently contains 19 tests in total:
+
+- 3 mandatory tests.
+- 16 extra tests.
 
 The suite is independent, can run in any order, and each test receives an isolated browser context from Playwright.
 
@@ -95,6 +109,9 @@ Copy-Item .env.example .env
 These values are safe to share because they belong to a public demo application:
 
 ```env
+ENV=qa
+QA_URL=https://the-internet.herokuapp.com
+DEV_URL=https://the-internet.herokuapp.com
 BASE_URL=https://the-internet.herokuapp.com
 LOGIN_PATH=/login
 LOGIN_USERNAME=tomsmith
@@ -105,7 +122,10 @@ PW_WORKERS=2
 
 Environment variables:
 
-- `BASE_URL`: target host.
+- `ENV`: selected environment name, for example `qa` or `dev`.
+- `QA_URL`: base URL used when `ENV=qa`.
+- `DEV_URL`: base URL used when `ENV=dev`.
+- `BASE_URL`: fallback target host when `ENV` is not set.
 - `LOGIN_PATH`: login route.
 - `LOGIN_USERNAME`: valid username.
 - `LOGIN_PASSWORD`: valid password.
@@ -138,10 +158,10 @@ Run all extra tests identified by Kelvin Calcano:
 npm run test:extra
 ```
 
-Run all positive tests:
+Run all smoke tests:
 
 ```bash
-npm run test:positive
+npm run test:smoke
 ```
 
 Run all negative tests:
